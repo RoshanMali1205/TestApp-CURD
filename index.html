@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+  
+  </head>
+  <body ng-app="myApp" ng-controller="myController">   
+   <div class="container">
+     
+     <hr>
+     <button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#myModal">Add Contact</button>
+    
+
+     <h2>Add User </h2>
+     <span class="clearfix"></span>
+     <hr>
+
+       <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Phone No</th>
+        <th>City</th>
+        <th>Address_Line1</th>
+        <th>Address_Line2</th>
+        <th>Postal Code</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in userData">
+
+        <td>{{user.Id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.address.city}}</td>
+        <td>{{user.address.address_line1}}</td>
+        <td>{{user.address.address_line2}}</td>
+        <td>{{user.address.postalCode}}</td>
+        <td>
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalEdit" ng-click="editUser(user);">Edit</button>
+        </td>
+        <td>
+           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDelete">Danger</button>
+        </td>
+      </tr>
+      </tbody>
+   </div>
+  <!--ADD  Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" style="width: 70%;">
+    
+      <!--  model content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add New User</h4>
+        </div>
+        <div class="modal-body">
+          
+          <form class="form-horizontal">
+            <div class="form-group">
+                  <label class="control-label col-sm-2">Id</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter ID" ng-model="newUser.Id">
+                  </div>
+              </div><br><br>             
+             <div class="form-group">
+                  <label class="control-label col-sm-2">Name</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter Name" ng-model="newUser.name">
+                  </div>
+              </div><br><br>
+             <div class="form-group">
+                  <label class="control-label col-sm-2">Phone No</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter Phone No" ng-model="newUser.phone">
+                  </div>
+              </div><br><br>
+             <div class="form-group">
+                  <label class="control-label col-sm-2">City</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter City" ng-model="newUser.address.city">
+                  </div><br><br>
+              </div>
+             <div class="form-group">
+                  <label class="control-label col-sm-2">Adress_Line 1</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter Adress_Line 1" ng-model="newUser.address.address_line1">
+                  </div>
+              </div><br><br><br>
+             <div class="form-group">
+                  <label class="control-label col-sm-2">Adress_Line 2</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter Adress_Line 2" ng-model="newUser.address.address_line2">
+                  </div>
+              </div><br><br>      
+              <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-default" ng-click="saveUser();" data-dismiss="modal">Save</button>
+                  </div>
+              </div><br>   
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+<!-- Edit Modal -->
+ <div class="modal fade" id="myModalEdit" role="dialog">
+    <div class="modal-dialog" style="width: 70%;">
+    
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit User</h4>
+        </div>
+        <div class="modal-body">
+          
+          <form class="form-horizontal">
+            <div class="form-group">
+                  <label class="control-label col-sm-2">Id</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter ID" ng-model="clickedUser.Id">
+                  </div>
+              </div><br><br>             
+             <div class="form-group">
+                  <label class="control-label col-sm-2">Name</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter Name" ng-model="clickedUser.name">
+                  </div>
+              </div><br><br>
+             <div class="form-group">
+                  <label class="control-label col-sm-2">Phone No</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter Phone No" ng-model="clickedUser.phone">
+                  </div>
+              </div><br><br>
+             <div class="form-group">
+                  <label class="control-label col-sm-2">City</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter City" ng-model="clickedUser.address.city">
+                  </div><br><br>
+              </div>
+             <div class="form-group">
+                  <label class="control-label col-sm-2">Adress_Line 1</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter Adress_Line 1" ng-model="clickedUser.address.address_line1">
+                  </div>
+              </div><br><br><br>
+             <div class="form-group">
+                  <label class="control-label col-sm-2">Adress_Line 2</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="Enter Adress_Line 2" ng-model="clickedUser.address.address_line2">
+                  </div>
+              </div><br><br>      
+              <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-default" ng-click="updateUser();"  data-dismiss="modal" >Save</button>
+                  </div>
+              </div><br>   
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+<!-- Edit Modal -->
+
+ <div class="modal fade" id="myModalDelete" role="dialog">
+    <div class="modal-dialog" style="width: 70%;">
+    
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Are You Sure ?</h4>
+        </div>
+        <div class="modal-body">
+        
+            <h1><strong style="color: red;"> You are goning to delete user {{clickedUser.name}}</strong> </h1>
+             
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="deleteUser();">Yes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
