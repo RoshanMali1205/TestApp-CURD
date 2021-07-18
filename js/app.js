@@ -1,6 +1,6 @@
 var myApp = angular.module("myApp", [])
 .controller('myController', function($scope){
-	console.log("hello");
+	console.log("hello Roshan Mali");
 	
 	$scope.userData = [
 					  {
